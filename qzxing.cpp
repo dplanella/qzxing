@@ -93,7 +93,7 @@ QString QZXing::decodeImage(QImage image)
     {
        qDebug() << "[decodeImage()] Exception:" << e.what();
        emit decodingFinished(false);
-       return "";
+       return QString();
     }
 }
 
@@ -114,7 +114,7 @@ QString QZXing::decodeSubImageQML(const QUrl &imageUrl,
     if (!file.exists()) {
         qDebug() << "[decodeSubImageQML()] The file" << file.fileName() << "does not exist.";
         emit decodingFinished(false);
-        return "";
+        return QString();
     }
 
     QImage img(imageUrl.path());
