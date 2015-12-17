@@ -77,7 +77,7 @@ QString QZXing::decodeImage(QImage image)
 
         DecodeHints hints((int)supportedFormats);
 
-        result = ((MultiFormatReader*)decoder)->decode(binary, hints);
+        result = decoder->decode(binary, hints);
 
         QString string = QString(result->getText()->getText().c_str());
         emit tagFound(string);

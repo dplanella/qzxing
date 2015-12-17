@@ -5,6 +5,10 @@
 #include <QObject>
 #include <QImage>
 
+namespace zxing {
+    class MultiFormatReader;
+};
+
 /**
   * A class containing a very very small subset of the ZXing library.
   * Created for ease of use.
@@ -71,9 +75,8 @@ signals:
     void tagFound(QString tag);
 
 private:
-    void* decoder;
+    zxing::MultiFormatReader *decoder;
     DecoderFormatType supportedFormats;
 };
 
 #endif // QZXING_H
-
