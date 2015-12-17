@@ -10,9 +10,8 @@
 
 using namespace zxing;
 
-QZXing::QZXing(QObject *parent) : QObject(parent)
+QZXing::QZXing(QObject *parent) : QObject(parent), decoder(new MultiFormatReader())
 {
-    decoder = new MultiFormatReader();
     setDecoder(DecoderFormat_QR_CODE |
                DecoderFormat_DATA_MATRIX |
                DecoderFormat_UPC_E |
