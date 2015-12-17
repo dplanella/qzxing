@@ -41,6 +41,7 @@ public:
 
 public:
     QZXing(QObject *parent = NULL);
+    virtual ~QZXing();
 
     /**
       * Set the enabled decoders.

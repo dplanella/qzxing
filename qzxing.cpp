@@ -25,6 +25,11 @@ QZXing::QZXing(QObject *parent) : QObject(parent)
                DecoderFormat_Aztec);
 }
 
+QZXing::~QZXing()
+{
+    delete decoder;
+}
+
 void QZXing::setDecoder(DecoderFormatType hint)
 {
     DecodeHints newHints;
