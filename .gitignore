@@ -6,3 +6,4 @@ debian/qtdeclarative5-qzxing-plugin*
 *.pro.user
 *.so
 *~
+.qmake.stash
