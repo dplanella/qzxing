@@ -10,9 +10,8 @@
 
 using namespace zxing;
 
-QZXing::QZXing(QObject *parent) : QObject(parent)
+QZXing::QZXing(QObject *parent) : QObject(parent), decoder(new MultiFormatReader())
 {
-    decoder = new MultiFormatReader();
     setDecoder(DecoderFormat_QR_CODE |
                DecoderFormat_DATA_MATRIX |
                DecoderFormat_UPC_E |
@@ -23,6 +22,11 @@ QZXing::QZXing(QObject *parent) : QObject(parent)
                DecoderFormat_CODE_39 |
                DecoderFormat_ITF |
                DecoderFormat_Aztec);
+}
+
+QZXing::~QZXing()
+{
+    delete decoder;
 }
 
 void QZXing::setDecoder(DecoderFormatType hint)
@@ -77,7 +81,7 @@ QString QZXing::decodeImage(QImage image)
 
         DecodeHints hints((int)supportedFormats);
 
-        result = ((MultiFormatReader*)decoder)->decode(binary, hints);
+        result = decoder->decode(binary, hints);
 
         QString string = QString(result->getText()->getText().c_str());
         emit tagFound(string);
@@ -88,7 +92,7 @@ QString QZXing::decodeImage(QImage image)
     {
        qDebug() << "[decodeImage()] Exception:" << e.what();
        emit decodingFinished(false);
-       return "";
+       return QString();
     }
 }
 
@@ -109,7 +113,7 @@ QString QZXing::decodeSubImageQML(const QUrl &imageUrl,
     if (!file.exists()) {
         qDebug() << "[decodeSubImageQML()] The file" << file.fileName() << "does not exist.";
         emit decodingFinished(false);
-        return "";
+        return QString();
     }
 
     QImage img(imageUrl.path());
